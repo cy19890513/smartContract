@@ -348,17 +348,17 @@ contract TokenSale is Ownable {
     // address where funds are collected
     address public wallet;
 
-    // Tokens to be created: 1000 M
-    uint256 public supply = 1000000000 * dec;
+    // Tokens to be created: 100 M
+    uint256 public supply = 100000000 * dec;
 
-    // 50ETH CAP, 1ETH = 95000 GNC
-    uint256 public earlyBirdSupply = 4750000 * dec;
+    // 250ETH CAP, 1ETH = 7350 GNC
+    uint256 public earlyBirdSupply = 1837500 * dec;
 
-    // Tokens to be sold in Pre-ICO phase: 250 M
-    uint256 public preICOSupply = 250000000 * dec;
+    // Tokens to be sold in Pre-ICO phase: 25 M
+    uint256 public preICOSupply = 25000000 * dec;
 
-    // Tokens to be sold in ICO phase: 500 M
-    uint256 public ICOSupply = 500000000 * dec;
+    // Tokens to be sold in ICO phase: 50 M
+    uint256 public ICOSupply = 50000000 * dec;
 
     // Minimum Contribution: 0.01 ether
     uint256 public minContribution = 10000000000000000; 
@@ -418,27 +418,27 @@ contract TokenSale is Ownable {
         uint256 all = 100;
         uint256 tokenSupply = token.totalSupply();
         if(now <= startTime + 5 days) { // early bird
-            amount = _value.mul(95000);
+            amount = _value.mul(7350);
             amount = amount.add(amount.mul(earlyBirdBonus).div(all));
             require(amount.add(tokenSupply) < earlyBirdSupply);
 
         } else if(now > startTime + 5 days && now <= startTime + 13 days) { // Pre-ICO 
-            amount = _value.mul(57000);
+            amount = _value.mul(5880);
             amount = amount.add(amount.mul(preICOBonus).div(all));
             require(amount.add(tokenSupply) < preICOSupply);
 
         } else if(now > startTime + 13 days && now <= startTime + 21 days) { // first ICO 
-            amount = _value.mul(52250);
+            amount = _value.mul(5390);
             amount = amount.add(amount.mul(firstICOBonus).div(all));
             require(amount.add(tokenSupply) < ICOSupply);
 
         } else if(now > startTime + 21 days && now <= startTime + 29 days) { // second ICO 
-            amount = _value.mul(49875);
+            amount = _value.mul(5145);
             amount = amount.add(amount.mul(secondICOBonus).div(all));
             require(amount.add(tokenSupply) < ICOSupply);
 
         } else if(now > startTime + 29 days && now <= endTime) { // last ICO
-            amount = _value.mul(47500);
+            amount = _value.mul(4900);
             require(amount.add(tokenSupply) < supply);
         }
         return amount;
